@@ -1,3 +1,12 @@
+import { Request, Response, NextFunction } from "express";
+import { Context } from "grammy";
+
+export interface IExpressParams {
+  req: Request;
+  res: Response;
+  next: NextFunction;
+}
+
 export interface IUser {
   id: number;
   telBotId: number;
@@ -9,13 +18,15 @@ export interface IUser {
 }
 
 export type TUserLogin = {
-  telBotId: string;
+  telBotId: number;
   telBotUserName?: string | null;
-  telBotLink: string
-}
+  telBotLink: string;
+  ctx: Context
+};
 
 export type TUserCreate = {
+  ctx: Context;
   telBotId: number;
   telBotUserName?: string | null;
   telBotChatId: number;
-}
+};

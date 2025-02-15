@@ -5,14 +5,14 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const databaseConfig = {
-  type: process.env.DATABASE_TYPE,
-  host: process.env.DATABASE_HOST,
-  port: process.env.DATABASE_PORT,
-  username: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE,
-};
+// const databaseConfig = {
+//   type: process.env.DATABASE_TYPE,
+//   host: process.env.DATABASE_HOST,
+//   port: process.env.DATABASE_PORT,
+//   username: process.env.DATABASE_USER,
+//   password: process.env.DATABASE_PASSWORD,
+//   database: process.env.DATABASE,
+// };
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -22,6 +22,6 @@ export const AppDataSource = new DataSource({
   password: "1",
   database: "jubeo",
   entities: [User],
-  synchronize: false,
+  synchronize: true,
   logging: false,
 });

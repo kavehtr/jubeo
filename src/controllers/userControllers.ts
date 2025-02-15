@@ -1,13 +1,13 @@
-import { Request, Response, NextFunction } from "express";
+import { IExpressParams } from "../types/app";
 
-export const Login = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    console.log("okey");
-  } catch (err) {
-    console.log(err);
-  }
+export const UserLoginController = async ({
+  req,
+  res,
+  next,
+}: IExpressParams) => {
+  const { telBotId, telBotLink, telBotUserName } = req.body;
+
+  console.log(telBotId, telBotLink, telBotUserName);
+  res.send("nice");
+  next();
 };

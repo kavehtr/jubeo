@@ -25,9 +25,11 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@node-rs/argon2": "^2.0.2",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "grammy": "^1.35.0",
+    "nanoid": "^5.1.0",
     "node-fetch": "^3.3.2",
     "pg": "^8.13.3",
     "reflect-metadata": "^0.2.2",

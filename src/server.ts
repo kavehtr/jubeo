@@ -1,10 +1,14 @@
-import express, { Request, Response, Express } from "express";
-import { Bot, webhookCallback } from "grammy";
+import express, { Express } from "express";
+import { webhookCallback } from "grammy";
 import dotenv from "dotenv";
 import { AppDataSource } from "./config/db";
+import { setHeaders } from "./middlewares/headers";
+import { UserRouter } from "./routes/userRoutes";
+import { bot } from "./bot";
 
 dotenv.config();
 
+const app: Express = express();
 const port = process.env.PORT || 3000;
 
 AppDataSource.initialize()
@@ -13,30 +17,18 @@ AppDataSource.initialize()
   })
   .catch((error: Error) => console.log(error));
 
-const app: Express = express();
+app.disable("x-powered-by");
+app.use(express.json({ limit: "1mb" }));
+app.use(setHeaders);
 
-app.use(express.json());
-
-const bot = new Bot("7633307322:AAFCkFX5MmEfNY6aorV0qIArWydIcmrkjeA");
-
-bot.command("start", async (ctx) => {
-  const id = ctx.from?.id;
-  const telBotUserName = ctx.from?.username;
-  const telBotLink = ctx.match;
-  ctx.reply("Welcome! (jubeo bot test)")
-
-  // return await login
-});
-
-bot.on("message", (ctx) => ctx.reply("Got another message!"));
-
+app.use("/user", UserRouter);
 app.use("/webhook", webhookCallback(bot, "express"));
 
 app.listen(port, () => {
   console.log(`System running at http://localhost:${port}`);
 });
 
-const NGROK_URL = "https://261e-104-223-102-61.ngrok-free.app";
+const NGROK_URL = "https://4df8-104-223-102-21.ngrok-free.app";
 bot.api
   .setWebhook(`${NGROK_URL}/webhook`)
   .then(() => {
